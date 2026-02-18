@@ -1335,6 +1335,151 @@
         justify-content: center;
         flex-wrap: wrap;
       }
+      /* Confetti particles */
+      .ty-confetti {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        border-radius: 24px;
+      }
+      .ty-confetti span {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        opacity: 0;
+      }
+      .ty-overlay.show .ty-confetti span {
+        animation: confettiBurst 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          forwards;
+      }
+      .ty-confetti span:nth-child(1) {
+        background: var(--cyan);
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.1s;
+        --cx: -120px;
+        --cy: -100px;
+      }
+      .ty-confetti span:nth-child(2) {
+        background: #ffaa32;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.15s;
+        --cx: 100px;
+        --cy: -120px;
+      }
+      .ty-confetti span:nth-child(3) {
+        background: #a371f7;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.2s;
+        --cx: -80px;
+        --cy: -140px;
+      }
+      .ty-confetti span:nth-child(4) {
+        background: #2ecc71;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.25s;
+        --cx: 130px;
+        --cy: -80px;
+      }
+      .ty-confetti span:nth-child(5) {
+        background: #0a93dc;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.12s;
+        --cx: -140px;
+        --cy: -60px;
+      }
+      .ty-confetti span:nth-child(6) {
+        background: #ff6b6b;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.18s;
+        --cx: 60px;
+        --cy: -150px;
+      }
+      .ty-confetti span:nth-child(7) {
+        background: var(--cyan);
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.22s;
+        --cx: -50px;
+        --cy: -130px;
+        width: 4px;
+        height: 4px;
+      }
+      .ty-confetti span:nth-child(8) {
+        background: #ffaa32;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.28s;
+        --cx: 90px;
+        --cy: -110px;
+        width: 4px;
+        height: 4px;
+      }
+      .ty-confetti span:nth-child(9) {
+        background: #a371f7;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.16s;
+        --cx: -100px;
+        --cy: -80px;
+        width: 5px;
+        height: 5px;
+      }
+      .ty-confetti span:nth-child(10) {
+        background: #2ecc71;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.3s;
+        --cx: 40px;
+        --cy: -90px;
+        width: 5px;
+        height: 5px;
+      }
+      .ty-confetti span:nth-child(11) {
+        background: #0a93dc;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.08s;
+        --cx: 150px;
+        --cy: -50px;
+        width: 4px;
+        height: 4px;
+      }
+      .ty-confetti span:nth-child(12) {
+        background: #ff6b6b;
+        left: 50%;
+        top: 40%;
+        animation-delay: 0.24s;
+        --cx: -30px;
+        --cy: -160px;
+        width: 4px;
+        height: 4px;
+      }
+      @keyframes confettiBurst {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(var(--cx), var(--cy)) scale(1.2) rotate(180deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--cx), calc(var(--cy) + 80px)) scale(0.6)
+            rotate(360deg);
+        }
+      }
       .ty-actions .btn-p {
         padding: 14px 28px;
         border-radius: 10px;
@@ -1478,6 +1623,11 @@
     <!-- THANK YOU OVERLAY -->
     <div class="ty-overlay" id="tyOverlay">
       <div class="ty-box">
+        <div class="ty-confetti">
+          <span></span><span></span><span></span><span></span> <span></span
+          ><span></span><span></span><span></span> <span></span><span></span
+          ><span></span><span></span>
+        </div>
         <div class="ty-glow"></div>
         <button class="ty-close" onclick="closeTy()" aria-label="Close">
           <i class="fa-solid fa-xmark" style="font-size: 16px"></i>
@@ -2328,29 +2478,7 @@
             >
               Send a message
             </p>
-            <form
-              class="f-form"
-              id="cform"
-              action="https://formsubmit.co/farman010f@gmail.com"
-              method="POST"
-            >
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="box" />
-              <input
-                type="hidden"
-                name="_subject"
-                value="New Portfolio Message — Farman"
-              />
-              <input
-                type="hidden"
-                name="_next"
-                value="https://farman010f.github.io/thanks"
-              />
-              <input
-                type="hidden"
-                name="_autoresponse"
-                value="Thanks for reaching out! I'll get back to you within 24-48 hours. – Farman"
-              />
+            <form class="f-form" id="contact-form">
               <input
                 class="f-inp"
                 type="text"
@@ -2837,44 +2965,6 @@
           });
       }
 
-      /* ── FORM SUBMIT ── */
-      document.getElementById("cform").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const fd = new FormData(this);
-        const self = this;
-        const btn = this.querySelector('button[type="submit"]');
-        const origText = btn.innerHTML;
-        btn.innerHTML =
-          '<i data-lucide="loader" style="width:14px;height:14px;animation:spin 1s linear infinite"></i> Sending...';
-        btn.disabled = true;
-        if (typeof lucide !== "undefined") lucide.createIcons();
-        fetch(this.action, {
-          method: "POST",
-          body: fd,
-          headers: { Accept: "application/json" },
-        })
-          .then((res) => {
-            if (res.ok) {
-              showTy();
-              self.reset();
-            } else {
-              alert(
-                "Something went wrong. Please try again or email farman010f@gmail.com directly.",
-              );
-            }
-          })
-          .catch(() => {
-            alert(
-              "Network error. Please check your connection or email farman010f@gmail.com directly.",
-            );
-          })
-          .finally(() => {
-            btn.innerHTML = origText;
-            btn.disabled = false;
-            if (typeof lucide !== "undefined") lucide.createIcons();
-          });
-      });
-
       function showTy() {
         document.getElementById("tyOverlay").classList.add("show");
         if (typeof lucide !== "undefined") lucide.createIcons();
@@ -2886,6 +2976,46 @@
         .getElementById("tyOverlay")
         .addEventListener("click", function (e) {
           if (e.target === this) closeTy();
+        });
+    </script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      // Initialize EmailJS
+      emailjs.init("ImAbOemfKRMlQQhBC");
+
+      // Handle form submit
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const btn = this.querySelector('button[type="submit"]');
+          const origHTML = btn.innerHTML;
+          btn.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin" style="width:14px;height:14px"></i> Sending...';
+          btn.disabled = true;
+
+          emailjs
+            .sendForm("service_58enhwt", "template_3uq82h7", this)
+            .then(function () {
+              document.getElementById("contact-form").reset();
+              btn.innerHTML = origHTML;
+              btn.style.background = "";
+              btn.disabled = false;
+              if (typeof lucide !== "undefined") lucide.createIcons();
+              showTy();
+            })
+            .catch(function (error) {
+              btn.innerHTML =
+                '<i class="fa-solid fa-xmark" style="width:14px;height:14px"></i> Failed';
+              btn.style.background = "#e74c3c";
+              console.error("EmailJS Error:", error);
+              setTimeout(function () {
+                btn.innerHTML = origHTML;
+                btn.style.background = "";
+                btn.disabled = false;
+              }, 3000);
+            });
         });
     </script>
   </body>
